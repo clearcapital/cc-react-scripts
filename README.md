@@ -15,12 +15,12 @@ This is a repo for our custom implementation of react scripts for the create rea
 - [x] Add our `.editorconfig`
 - [x] Add `.npmrc`
 - [x] Add `.nvmrc`
-- [x] Update npm scripts specificly for linting and unit testing, then have test call both like in our apps now
-- [ ] Add react-jss
-- [ ] Add lodash
-- [ ] Add moment
-- [ ] Add classnames
-- [ ] Add Redux
+- [x] Update npm scripts specifically for linting and unit testing, then have test call both like in our apps now
+- [x] Add react-jss
+- [x] Add lodash
+- [x] Add moment
+- [x] Add classnames
+- [x] Add Redux
     - redux
     - redux-devtools
     - redux-devtools-dock-monitor
@@ -53,13 +53,16 @@ Async, await, and class properties are included implicitly when using the preset
 #### Adding Lint Style
 Lint styles just involve copying over `.eslintrc` and `.eslintignore` to the `template/` directory from an existing CC project, and adding the StandardJS package to `package.json`.
 
-#### Npm Scripts
+#### Adding & Editing Npm Scripts
 Scripts can be added to the `scripts/` directory. In order to make it accessible for use, add the matching case to `bin/react-scripts.js` and `scripts/init.js`:
 1. `bin/react-scripts.js`: Add the name of script anywhere to the switch statement.
 2. `scripts/init.js`: Add the name of the script and its corresponding command.
   - Notice that all `react-scripts <arg>` commands will call the script in the scripts folder. Upon ejecting, it gets converted to `node /path/to/script`
 
 >Note: to account for the colon character when converting names on eject, the regex was changed in scripts/eject.js from `\\w` to `.` to match all characters (line 179 - `const regex = new RegExp(binKey + ' (.+)', 'g')`).
+
+#### Adding Other Packages
+For every package that doesn't involve some kind of configuration, simply add it to the dependencies section under `package.json`.
 
 ### Misc. Changes
 
