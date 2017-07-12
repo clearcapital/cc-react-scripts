@@ -41,7 +41,11 @@ module.exports = function(
   appPackage.scripts = {
     start: 'react-scripts start',
     build: 'react-scripts build',
-    test: 'react-scripts test --env=jsdom',
+    pretest: 'npm run test:lint',
+    test: 'npm run test:unit',
+    'test:unit': 'react-scripts test:unit',
+    'test:watch': 'react-scripts test:watch',
+    'test:lint': './node_modules/.bin/eslint . --color; exit 0',
     eject: 'react-scripts eject',
   };
 

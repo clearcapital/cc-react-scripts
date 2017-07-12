@@ -1,6 +1,6 @@
 {
   "name": "cc-react-scripts",
-  "version": "1.0.10",
+  "version": "1.0.26",
   "description": "Clear Capital configuration and scripts for Create React App.",
   "repository": "clearcapital/cc-react-scripts",
   "license": "BSD-3-Clause",
@@ -55,6 +55,7 @@
     "react-error-overlay": "^1.0.9",
     "node-sass": "4.5.3",
     "sass-loader": "6.0.6",
+    "standard": "^10.0.2",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.3",
     "url-loader": "0.5.9",
