@@ -234,6 +234,36 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+          {
+            test: /\.scss$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('style-loader'), // creates style nodes from JS strings
+              },
+              {
+                loader: require.resolve('css-loader'), // translates CSS into CommonJS
+              },
+              {
+                loader: require.resolve('sass-loader'), // compiles Sass to CSS
+              },
+            ],
+          },
+          {
+            test: /\.less$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('style-loader'), // creates style nodes from JS strings
+              },
+              {
+                loader: require.resolve('css-loader'), // translates CSS into CommonJS
+              },
+              {
+                loader: require.resolve('less-loader'), // compiles Less to CSS
+              },
+            ],
+          },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader don't uses a "test" so it will catch all modules
@@ -244,7 +274,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            exclude: [/\.js$/, /\.html$/, /\.json$/, /\.sass$/, /\.less$/],
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },

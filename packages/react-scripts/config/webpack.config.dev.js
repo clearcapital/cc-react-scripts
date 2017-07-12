@@ -219,6 +219,36 @@ module.exports = {
               },
             ],
           },
+          {
+            test: /\.scss$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('style-loader'), // creates style nodes from JS strings
+              },
+              {
+                loader: require.resolve('css-loader'), // translates CSS into CommonJS
+              },
+              {
+                loader: require.resolve('sass-loader'), // compiles Sass to CSS
+              },
+            ],
+          },
+          {
+            test: /\.less$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('style-loader'), // creates style nodes from JS strings
+              },
+              {
+                loader: require.resolve('css-loader'), // translates CSS into CommonJS
+              },
+              {
+                loader: require.resolve('less-loader'), // compiles Less to CSS
+              },
+            ],
+          },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
           // In production, they would get copied to the `build` folder.
@@ -229,7 +259,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            exclude: [/\.js$/, /\.html$/, /\.json$/, /\.sass$/, /\.less$/],
             loader: require.resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
