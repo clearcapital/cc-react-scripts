@@ -2,8 +2,6 @@
 
 This is a repo for our custom implementation of react scripts for the create react app tool
 
-> `/packages/react-scripts` is where all customization takes place.
-> The rest of this guide will assume it as the root directory.
 
 ## TODO
 
@@ -34,12 +32,12 @@ Clone this repository into your work space and prepare to edit files in `/packag
 ```bash
 create-react-app myApp --scripts-version cc-react-scripts
 ```
-To make your changes available for use, refer to [Publishing Changes](#publishing-changes)
+To make your changes available for use, refer to [Publishing to Npm](#publishing-to-Npm)
 
-### Editing config files
-Unsurprisingly, the config files are under the folder `config`.
->*Note:*
->When running `eject` from a new app, this entire config folder gets (almost) exactly copied to the application root. Thus, all changes are directly reflected.
+### Making Changes
+
+> `/packages/react-scripts` is where all customization takes place.
+> The rest of this guide will assume it as the root directory.
 
 #### Adding Sass and Less to Webpack
 Following the documentation for sass-loader and less-loader, add their respective loaders to both webpack config files, then specify the packages in `package.json`. Note that `.sass` and `.less` files have also been added to the `exclude` list for the `file-loader` module in the webpack config:
@@ -64,6 +62,29 @@ Scripts can be added to the `scripts/` directory. In order to make it accessible
 #### Adding Other Packages
 For every package that doesn't involve some kind of configuration, simply add it to the dependencies section under `package.json`.
 
-### Misc. Changes
+#### Misc. Changes
 
 - To add a `.npmrc` file to the template project, follow the same process that the original script took for `.gitignore` -- npm reads `.npmrc` when publishing and removes it automatically. Thus, rename it from `npmrc` to `.npmrc` on project init. You can see changes in `scripts/init.js`.
+
+- All other files that are wanted directly in the root of the app can simply be added to the `template/` directory.
+
+## Publishing to Npm
+
+In order to update the cc-react-scripts registry, you need to first register a user account with npm.
+
+#### Creating an Account
+To do this in the command line, use `npm adduser` and follow the prompts. If you already have an account, check if you're logged in locally with `npm whoami`. If you're not logged in, use `npm login`.
+
+#### Updating the Package
+You then need to gain ownership of the cc-react-scripts registry in order to publish to it. To do so, you'll need to beg someone who has more control over things than you.
+
+From there, you can update the package version with `npm version <update_type>`, where where update_type is one of the semantic versioning release types, patch, minor, or major. This command will change the version number in `package.json`.
+
+After updating the version number, you can `npm publish` to push your changes to the registry.
+
+>Note: You cannot publish with the same version number as a previously published version, so you *must* run `npm version patch` for even small updates.
+
+#### Granting ownership
+To give someone publishing access, use `npm owner add`. Refer to the [docs](https://docs.npmjs.com/cli/owner) for more info.
+
+Note that there is only one level of access. Either you can modify a package, or you can't.
