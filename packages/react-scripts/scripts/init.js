@@ -91,6 +91,25 @@ module.exports = function(
     }
   );
 
+  // Rename npmrc after the fact to prevent npm from deleting it
+  fs.move(
+    path.join(appPath, 'npmrc'),
+    path.join(appPath, '.npmrc'),
+    [],
+    err => {
+      if (err) {
+        // Overwrite if there's already a `.npmrc` file there
+        if (err.code === 'EEXIST') {
+          const data = fs.readFileSync(path.join(appPath, 'npmrc'));
+          fs.writeFileSync(path.join(appPath, '.npmrc'), data);
+          fs.unlinkSync(path.join(appPath, 'npmrc'));
+        } else {
+          throw err;
+        }
+      }
+    }
+  );
+
   let command;
   let args;
 
