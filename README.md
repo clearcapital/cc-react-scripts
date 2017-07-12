@@ -7,14 +7,14 @@ This is a repo for our custom implementation of react scripts for the create rea
 
 ## TODO
 
-- [ ] Update this readme file with your guide to update and change this script
-- [ ] Fix the build config, `npm run build` does not seem to process the other style files
-- [ ] Babel: Verify asycn and await
-- [ ] Babel: Add decorators
+- [x] Update this readme file with your guide to update and change this script
+- [x] Fix the build config, `npm run build` does not seem to process the other style files
+- [x] Babel: Verify asycn and await
+- [x] Babel: Add decorators
 - [ ] Update the lint style to use StandardJS
-- [ ] Add our `.editorconfig`
-- [ ] Add `.npmrc`
-- [ ] Add `.nvmrc`
+- [x] Add our `.editorconfig`
+- [x] Add `.npmrc`
+- [x] Add `.nvmrc`
 - [ ] Update npm scripts specificly for linting and unit testing, then have test call both like in our apps now
 - [ ] Add react-jss
 - [ ] Add lodash
@@ -47,7 +47,8 @@ Following the documentation for sass-loader and less-loader, I added their respe
 exclude: [/\.js$/, /\.html$/, /\.json$/, /\.sass$/, /\.less$/],
 ```
 
-####
+#### Adding Babel Plugins
+Async, await, and class properties are included implicitly when using the preset `react-app`. Thus, only decorators needs to be added manually. To do this, I modified the webpack configs inside the `@remove-on-eject` babel section to specify the plugin for `transform-decorators-legacy`. I also added it as a dev dependency in `package.json`.
 
 ### Misc. Changes
 
