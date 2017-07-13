@@ -21,9 +21,26 @@ This is a repo for our custom implementation of react scripts for the create rea
     - redux
     - redux-devtools
     - redux-devtools-dock-monitor
-    - redux-devtools-log-monito
+    - redux-devtools-log-monitor
     - redux-multi
     - redux-promise
     - redux-thunk
+
+**Use Other CC Web projects as examples to finish off app boilerplate and features:**
+
+- [ ] Look into webpack-dashboard for running our dev builds (karma-web/package.json)
+- [ ] Add routing (karma-web/client/routes.js)
+- [ ] Add a redux store (karma-web/client/store.js)
+- [ ] Add redux dev tools when running dev only, as in it should not be there in a prod build (karma-web/client/ApplicationNode.js && karma-web/client/components/DevTools)
+- [ ] Add a sample action (web-template-fe/src/actions/ && web-template-fe/src/index.js)
+- [ ] Add a sample reducer (web-template-fe/src/reducers/ && web-template-fe/src/index.js)
+- [ ] Allow for an initial state to be pulled from the window object (karma-web/client/index.js)
+- [ ] Add and api class and its needed dependency, fetch || isomorphic-fetch || whatwg-fetch (karma-web/services/Api.js)
+
+**Finishers**
+
+- [ ] Add your instructions for updating this project to this file
+- [ ] Add a deploy script to send the project to the npm repo
+- [ ] Submit a PR for all of your work
 
 ## DONE
