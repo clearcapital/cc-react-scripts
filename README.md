@@ -46,7 +46,7 @@ exclude: [/\.js$/, /\.html$/, /\.json$/, /\.sass$/, /\.less$/],
 ```
 
 #### Adding Babel Plugins
-Async, await, and class properties are included implicitly when using the preset `react-app`. Thus, only decorators need to be added manually. To do this, modify the webpack configs inside the `@remove-on-eject` babel section to specify the plugin for `transform-decorators-legacy`. Also add it as a dev dependency in `package.json`. Lastly, add to `scripts/eject.js` where a babel config object is appended to `package.json` in order to consider the possibility of ejecting.
+Async, await, and class properties are included implicitly when using the preset `react-app`. Thus, only decorators need to be added manually. To do this, modify the webpack configs inside the `@remove-on-eject` babel section to specify the plugin for `transform-decorators-legacy`. Also add it as a dependency in `package.json`. Lastly, add to `scripts/eject.js` where a babel config object is appended to `package.json` in order to consider the possibility of ejecting.
 
 #### Adding Lint Style
 Lint styles just involve copying over `.eslintrc` and `.eslintignore` to the `template/` directory from an existing CC project, and adding the StandardJS package to `package.json`.
@@ -60,7 +60,9 @@ Scripts can be added to the `scripts/` directory. In order to make it accessible
 >Note: to account for the colon character when converting names on eject, the regex was changed in scripts/eject.js from `\\w` to `.` to match all characters (line 179 - `const regex = new RegExp(binKey + ' (.+)', 'g')`).
 
 #### Adding Other Packages
-For every package that doesn't involve some kind of configuration, simply add it to the dependencies section under `package.json`.
+For every package that doesn't involve some kind of configuration, simply add it to the appropriate section in `template/.template.dependencies.json`. They'll get added with npm install automatically so that you, as the developer, have access to them.
+
+>Note: We added previous configuration packages to `packages.json` because they are used only by webpack or babel. Therefore, we don't need them if we're not touching the configs.
 
 #### Misc. Changes
 
