@@ -1,6 +1,6 @@
 {
   "name": "cc-react-scripts",
-  "version": "1.1.1",
+  "version": "1.1.5",
   "description": "Clear Capital configuration and scripts for Create React App.",
   "repository": "clearcapital/cc-react-scripts",
   "license": "BSD-3-Clause",
@@ -71,6 +71,7 @@
     "sw-precache-webpack-plugin": "0.11.3",
     "url-loader": "0.5.9",
     "webpack": "2.6.1",
+    "webpack-dashboard": "0.4.0",
     "webpack-dev-server": "2.5.0",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3"

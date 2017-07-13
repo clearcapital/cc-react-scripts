@@ -39,7 +39,7 @@ module.exports = function(
 
   // Setup the script rules
   appPackage.scripts = {
-    start: 'react-scripts start',
+    start: 'webpack-dashboard -c cyan -- react-scripts start',
     build: 'react-scripts build',
     pretest: 'npm run test:lint',
     test: 'npm run test:unit',

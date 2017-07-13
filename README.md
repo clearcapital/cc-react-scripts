@@ -88,3 +88,22 @@ After updating the version number, you can `npm publish` to push your changes to
 To give someone publishing access, use `npm owner add`. Refer to the [docs](https://docs.npmjs.com/cli/owner) for more info.
 
 Note that there is only one level of access. Either you can modify a package, or you can't.
+
+## OTHER TODOS
+
+**Use Other CC Web projects as examples to finish off app boilerplate and features:**
+
+- [x] Look into webpack-dashboard for running our dev builds (karma-web/package.json)
+- [ ] Add routing (karma-web/client/routes.js)
+- [ ] Add a redux store (karma-web/client/store.js)
+- [ ] Add redux dev tools when running dev only, as in it should not be there in a prod build (karma-web/client/ApplicationNode.js && karma-web/client/components/DevTools)
+- [ ] Add a sample action (web-template-fe/src/actions/ && web-template-fe/src/index.js)
+- [ ] Add a sample reducer (web-template-fe/src/reducers/ && web-template-fe/src/index.js)
+- [ ] Allow for an initial state to be pulled from the window object (karma-web/client/index.js)
+- [x] Add and api class and its needed dependency, fetch || isomorphic-fetch || whatwg-fetch (karma-web/services/Api.js)
+
+**Finishers**
+
+- [ ] Add your instructions for updating this project to this file
+- [ ] Add a deploy script to send the project to the npm repo
+- [ ] Submit a PR for all of your work
