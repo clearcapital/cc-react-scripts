@@ -30,7 +30,7 @@ This is a repo for our custom implementation of react scripts for the create rea
 ## Getting Started
 Clone this repository into your work space and prepare to edit files in `/packages/react-scripts`. To actually _create_ an app with these custom scripts:
 ```bash
-create-react-app myApp --scripts-version cc-react-scripts
+create-react-app my-app --scripts-version cc-react-scripts
 ```
 To make your changes available for use, refer to [Publishing to Npm](#publishing-to-Npm)
 
