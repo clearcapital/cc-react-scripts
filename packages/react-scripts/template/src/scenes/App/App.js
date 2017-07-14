@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from 'components/Header'
+import Footer from 'components/Footer'
 import { Link } from 'react-router-dom'
 import './App.css'
 
@@ -19,9 +20,8 @@ class App extends Component {
           <li>Lodash, moment, classnames</li>
           <li>And much more!</li>
         </ul>
-        <p className="App-intro">
-          <Link className="linkText" to='/Example'>Redux Example</Link>
-        </p>
+        <Link className="linkText" to='/Example'>Redux Example</Link>
+        <Footer/>
       </div>
     )
   }
