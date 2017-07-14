@@ -87,7 +87,12 @@ module.exports = {
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    modules: ['node_modules', paths.appNodeModules].concat(
+
+    // cc-react-scripts also adds support for absolute paths with paths.appSrc
+    // eg: import SomeFile from '../../components/SomeFile' becomes
+    // import SomeFile from 'components/SomeFile'
+    // where SomeFile is at /src/components/SomeFile.js
+    modules: [paths.appSrc, 'node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
@@ -120,6 +125,7 @@ module.exports = {
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc),
     ],
+
   },
   module: {
     strictExportPresence: true,

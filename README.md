@@ -70,6 +70,16 @@ For every package that doesn't involve some kind of configuration, simply add it
 
 - All other files that are wanted directly in the root of the app can simply be added to the `template/` directory.
 
+## Development
+At the time, I haven't found a clear way to directly test cc-react-scripts without publishing to npm registry\* for use with create-react-app. To avoid doing so for every change, we can test on the app the gets created via the script:
+
+1. *Testing webpack configs*: run `npm run eject` from the newly created app, and make changes within the config folder.
+2. *Testing app template*: simply modify the files under `src/`
+
+Be sure to copy over the files after finishing edits. If you _must_ test a change that requires create-react-app (eg, testing webpack configs with no eject), run the publish script with the beta option: `./publish.sh beta`
+
+>\* In theory, it should be possible to run `create-react-app my-app --scripts-version /absolute/path/to/this/module`, but the init script doesn't seem to play nicely with it. Maybe someday.
+
 ## Publishing to Npm
 
 In order to update the cc-react-scripts registry, you need to first register a user account with npm.
@@ -80,7 +90,9 @@ To do this in the command line, use `npm adduser` and follow the prompts. If you
 #### Updating the Package
 You then need to gain ownership of the cc-react-scripts registry in order to publish to it. To do so, you'll need to beg someone who has more control over things than you.
 
-From there, you can update the package version with `npm version <update_type>`, where where update_type is one of the semantic versioning release types, patch, minor, or major. This command will change the version number in `package.json`.
+*EASY WAY*: Use the provided script: `./publish.sh`. By default, this publishes a patch. Find out more with `./publish.sh -h`
+
+*MANUALLY*: You can update the package version with `npm version <update_type>`, where where update_type is one of the semantic versioning release types, patch, minor, or major. This command will change the version number in `package.json`.
 
 After updating the version number, you can `npm publish` to push your changes to the registry.
 
@@ -96,16 +108,16 @@ Note that there is only one level of access. Either you can modify a package, or
 **Use Other CC Web projects as examples to finish off app boilerplate and features:**
 
 - [x] Look into webpack-dashboard for running our dev builds (karma-web/package.json)
-- [ ] Add routing (karma-web/client/routes.js)
-- [ ] Add a redux store (karma-web/client/store.js)
-- [ ] Add redux dev tools when running dev only, as in it should not be there in a prod build (karma-web/client/ApplicationNode.js && karma-web/client/components/DevTools)
-- [ ] Add a sample action (web-template-fe/src/actions/ && web-template-fe/src/index.js)
-- [ ] Add a sample reducer (web-template-fe/src/reducers/ && web-template-fe/src/index.js)
-- [ ] Allow for an initial state to be pulled from the window object (karma-web/client/index.js)
+- [x] Add routing (karma-web/client/routes.js)
+- [x] Add a redux store (karma-web/client/store.js)
+- [x] Add redux dev tools when running dev only, as in it should not be there in a prod build (karma-web/client/ApplicationNode.js && karma-web/client/components/DevTools)
+- [x] Add a sample action (web-template-fe/src/actions/ && web-template-fe/src/index.js)
+- [x] Add a sample reducer (web-template-fe/src/reducers/ && web-template-fe/src/index.js)
+- [x] Allow for an initial state to be pulled from the window object (karma-web/client/index.js)
 - [x] Add and api class and its needed dependency, fetch || isomorphic-fetch || whatwg-fetch (karma-web/services/Api.js)
 
 **Finishers**
 
-- [ ] Add your instructions for updating this project to this file
-- [ ] Add a deploy script to send the project to the npm repo
+- [x] Add your instructions for updating this project to this file
+- [x] Add a deploy script to send the project to the npm repo
 - [ ] Submit a PR for all of your work
