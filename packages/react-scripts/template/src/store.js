@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import ReduxPromise from 'redux-promise'
 import {persistState} from 'redux-devtools'
 import DevTools from './components/DevTools'
-import rootReducer from './services/rootReducer'
+import rootReducer from 'reducers'
 
 export function configureStore (initialState = {}) {
   const middleware = [thunk, multi, ReduxPromise]
@@ -23,8 +23,8 @@ export function configureStore (initialState = {}) {
   // For hot reloading of react components
   // Also for debugging
   if (process.env.NODE_ENV !== 'production' && module.hot) {
-    module.hot.accept('./services/rootReducer', () => {
-      const nextReducer = require('./services/rootReducer').default
+    module.hot.accept('./reducers', () => {
+      const nextReducer = require('./reducers').default
       store.replaceReducer(nextReducer)
     })
 

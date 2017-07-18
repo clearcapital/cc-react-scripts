@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Example from './scenes/Example'
-import App from './scenes/App'
+import Example from './views/Example'
+import App from './views/App'
 const Routes = () => {
   return (
     <Switch>

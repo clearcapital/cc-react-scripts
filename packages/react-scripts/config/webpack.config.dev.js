@@ -182,7 +182,18 @@ module.exports = {
               // @remove-on-eject-begin
               babelrc: false,
               presets: [require.resolve('babel-preset-react-app')],
-              plugins: [require.resolve('babel-plugin-transform-decorators-legacy')],
+              plugins: [[
+                        require.resolve('babel-plugin-react-css-modules'),
+                        {
+                          "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]",
+                          "webpackHotModuleReloading": true,
+                          "filetypes": {
+                            ".scss": {
+                              "syntax": "postcss-scss"
+                            }
+                          }
+                        }
+                      ],require.resolve('babel-plugin-transform-decorators-legacy')],
               // @remove-on-eject-end
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -235,7 +246,7 @@ module.exports = {
                 loader: require.resolve('style-loader'), // creates style nodes from JS strings
               },
               {
-                loader: require.resolve('css-loader'), // translates CSS into CommonJS
+                loader: 'css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]', // creates local modular CSS
               },
               {
                 loader: require.resolve('sass-loader'), // compiles Sass to CSS

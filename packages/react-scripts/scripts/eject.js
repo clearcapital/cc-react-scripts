@@ -202,7 +202,20 @@ inquirer
     console.log(`  Adding ${cyan('Babel')} preset`);
     appPackage.babel = {
       presets: ['react-app'],
-      plugins: ['transform-decorators-legacy'],
+      plugins: [
+        [
+          "babel-plugin-react-css-modules",
+          {
+            "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]",
+            "webpackHotModuleReloading": true,
+            "filetypes": {
+              ".scss": {
+                "syntax": "postcss-scss"
+              }
+            }
+          }
+        ],
+        'transform-decorators-legacy'],
     };
 
     // Add ESlint config
