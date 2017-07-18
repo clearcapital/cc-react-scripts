@@ -22,7 +22,7 @@ This is a repo for our custom implementation of react scripts for the create rea
     - redux
     - redux-devtools
     - redux-devtools-dock-monitor
-    - redux-devtools-log-monito
+    - redux-devtools-log-monitor
     - redux-multi
     - redux-promise
     - redux-thunk
