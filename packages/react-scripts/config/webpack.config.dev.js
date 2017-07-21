@@ -185,7 +185,7 @@ module.exports = {
               plugins: [[
                         require.resolve('babel-plugin-react-css-modules'),
                         {
-                          "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]",
+                          "generateScopedName": "[name]-[local]__[hash:base64:7]",
                           "webpackHotModuleReloading": true,
                           "filetypes": {
                             ".scss": {
@@ -246,7 +246,7 @@ module.exports = {
                 loader: require.resolve('style-loader'), // creates style nodes from JS strings
               },
               {
-                loader: 'css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]', // creates local modular CSS
+                loader: 'css-loader?importLoader=1&modules&localIdentName=[name]-[local]__[hash:base64:7]', // creates local modular CSS
               },
               {
                 loader: require.resolve('sass-loader'), // compiles Sass to CSS

@@ -184,8 +184,7 @@ module.exports = {
               plugins: [[
                         require.resolve('babel-plugin-react-css-modules'),
                         {
-                          "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]",
-                          "webpackHotModuleReloading": true,
+                          "generateScopedName": "[local]-[hash:base64:12]",
                           "filetypes": {
                             ".scss": {
                               "syntax": "postcss-scss"
@@ -258,7 +257,7 @@ module.exports = {
               Object.assign({
                 use: [
                   {
-                    loader: 'css-loader?importLoader=1&minimize&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]', // creates local modular CSS
+                    loader: 'css-loader?importLoader=1&minimize&modules&localIdentName=[local]-[hash:base64:12]', // creates local modular CSS
                   },
                   {
                     loader: require.resolve('sass-loader'), // compiles Sass to CSS

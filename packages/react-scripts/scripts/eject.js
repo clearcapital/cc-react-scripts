@@ -198,26 +198,6 @@ inquirer
     console.log(`  Adding ${cyan('Jest')} configuration`);
     appPackage.jest = jestConfig;
 
-    // Add Babel config
-    console.log(`  Adding ${cyan('Babel')} preset`);
-    appPackage.babel = {
-      presets: ['react-app'],
-      plugins: [
-        [
-          "babel-plugin-react-css-modules",
-          {
-            "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]",
-            "webpackHotModuleReloading": true,
-            "filetypes": {
-              ".scss": {
-                "syntax": "postcss-scss"
-              }
-            }
-          }
-        ],
-        'transform-decorators-legacy'],
-    };
-
     // Add ESlint config
     console.log(`  Adding ${cyan('ESLint')} configuration`);
     appPackage.eslintConfig = {
@@ -229,6 +209,69 @@ inquirer
       JSON.stringify(appPackage, null, 2) + '\n'
     );
     console.log();
+
+    // Add .babelrc
+    console.log(`  Adding ${cyan('Babel')} preset`);
+    const appBabel = {
+      presets: ['react-app'],
+      plugins: [
+        "transform-decorators-legacy"
+      ],
+      env: {
+        development: {
+          plugins: [
+            [
+              "react-css-modules",
+              {
+                "generateScopedName": "[name]-[local]__[hash:base64:7]",
+                "webpackHotModuleReloading": true,
+                "filetypes": {
+                  ".scss": {
+                    "syntax": "postcss-scss"
+                  }
+                }
+              }
+            ],
+          ],
+        },
+        production: {
+          plugins: [
+            [
+              "react-css-modules",
+              {
+                "generateScopedName": "[local]-[hash:base64:12]",
+                "filetypes": {
+                  ".scss": {
+                    "syntax": "postcss-scss"
+                  }
+                }
+              }
+            ],
+          ],
+        },
+        test: {
+          plugins: [
+            [
+              "react-css-modules",
+              {
+                "generateScopedName": "[local]",
+                "filetypes": {
+                  ".scss": {
+                    "syntax": "postcss-scss"
+                  }
+                }
+              }
+            ],
+          ],
+        },
+      }
+    };
+    fs.writeFileSync(
+      path.join(appPath, '.babelrc'),
+      JSON.stringify(appBabel, null, 2) + '\n'
+    );
+    console.log();
+
 
     // "Don't destroy what isn't ours"
     if (ownPath.indexOf(appPath) === 0) {
