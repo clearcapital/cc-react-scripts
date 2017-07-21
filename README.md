@@ -46,7 +46,16 @@ exclude: [/\.js$/, /\.html$/, /\.json$/, /\.sass$/, /\.less$/],
 ```
 
 #### Adding Babel Plugins
-Async, await, and class properties are included implicitly when using the preset `react-app`. Thus, only decorators need to be added manually. To do this, modify the webpack configs inside the `@remove-on-eject` babel section to specify the plugin for `transform-decorators-legacy`. Also add it as a dependency in `package.json`. Lastly, add to `scripts/eject.js` where a babel config object is appended to `package.json` in order to consider the possibility of ejecting.
+Async, await, and class properties are included implicitly when using the preset `react-app`. Thus, only decorators need to be added manually. To do this, modify the webpack configs inside the `@remove-on-eject` babel section to specify the plugin for `transform-decorators-legacy`. For future plugins, add the plugin and respective package into `package.json`. Also add to `config/jest/babelTransform` if need be. Lastly, add the same configuration to `scripts/eject.js` under the babel config object in order to consider the possibility of ejecting.
+
+##### Ex: Adding babel-plugin-react-css-modules
+To add this package, I needed to touch on a lot of code. Since I can see this being removed in the future, I will list everything that was changed:
+1. `config/webpack.config.*.js`:
+  1. `scss` webpack config section (dev and prod): changed `css-loader` to `css-loader?importLoader...`.
+  2. `babel-loader` webpack config section (dev and prod): added babel plugin for babel-plugin-react-css-modules.
+2. `config/jest/babelTransform`: added the babel plugin for babel-plugin-react-css-modules.
+3. `scripts/eject.js`: added the plugin to the babelrc object section.
+4. `package.json`: added `babel-plugin-react-css-modules` and `postcss-scss` packages.
 
 #### Adding Lint Style
 Lint styles just involve copying over `.eslintrc` and `.eslintignore` to the `template/` directory from an existing CC project, and adding the StandardJS package to `package.json`.
@@ -120,4 +129,4 @@ Note that there is only one level of access. Either you can modify a package, or
 
 - [x] Add your instructions for updating this project to this file
 - [x] Add a deploy script to send the project to the npm repo
-- [ ] Submit a PR for all of your work
+- [x] Submit a PR for all of your work
