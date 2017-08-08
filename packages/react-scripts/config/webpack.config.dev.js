@@ -19,6 +19,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
@@ -86,7 +87,12 @@ module.exports = {
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    modules: ['node_modules', paths.appNodeModules].concat(
+
+    // cc-react-scripts also adds support for absolute paths with paths.appSrc
+    // eg: import SomeFile from '../../components/SomeFile' becomes
+    // import SomeFile from 'components/SomeFile'
+    // where SomeFile is at /src/components/SomeFile.js
+    modules: [paths.appSrc, 'node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
@@ -119,6 +125,7 @@ module.exports = {
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc),
     ],
+
   },
   module: {
     strictExportPresence: true,
@@ -134,17 +141,6 @@ module.exports = {
         enforce: 'pre',
         use: [
           {
-            options: {
-              formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint'),
-              // @remove-on-eject-begin
-              baseConfig: {
-                extends: [require.resolve('eslint-config-react-app')],
-              },
-              ignore: false,
-              useEslintrc: false,
-              // @remove-on-eject-end
-            },
             loader: require.resolve('eslint-loader'),
           },
         ],
@@ -175,6 +171,18 @@ module.exports = {
               // @remove-on-eject-begin
               babelrc: false,
               presets: [require.resolve('babel-preset-react-app')],
+              plugins: [[
+                        require.resolve('babel-plugin-react-css-modules'),
+                        {
+                          "generateScopedName": "[name]-[local]__[hash:base64:7]",
+                          "webpackHotModuleReloading": true,
+                          "filetypes": {
+                            ".scss": {
+                              "syntax": "postcss-scss"
+                            }
+                          }
+                        }
+                      ],require.resolve('babel-plugin-transform-decorators-legacy')],
               // @remove-on-eject-end
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -219,6 +227,36 @@ module.exports = {
               },
             ],
           },
+          {
+            test: /\.scss$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('style-loader'), // creates style nodes from JS strings
+              },
+              {
+                loader: 'css-loader?importLoader=1&modules&localIdentName=[name]-[local]__[hash:base64:7]', // creates local modular CSS
+              },
+              {
+                loader: require.resolve('sass-loader'), // compiles Sass to CSS
+              },
+            ],
+          },
+          {
+            test: /\.less$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('style-loader'), // creates style nodes from JS strings
+              },
+              {
+                loader: require.resolve('css-loader'), // translates CSS into CommonJS
+              },
+              {
+                loader: require.resolve('less-loader'), // compiles Less to CSS
+              },
+            ],
+          },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
           // In production, they would get copied to the `build` folder.
@@ -229,7 +267,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            exclude: [/\.js$/, /\.html$/, /\.json$/, /\.sass$/, /\.less$/],
             loader: require.resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
@@ -274,6 +312,10 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // Webpack-dashboard is here to make your life easier when reading logs.
+    // Also you get to feel like an astronaut.
+    // Who doesn't want that?
+    new DashboardPlugin(),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

@@ -44,6 +44,8 @@ module.exports = (resolve, rootDir, isEjecting) => {
       '^react-native$': 'react-native-web',
     },
     moduleFileExtensions: ['web.js', 'js', 'json', 'web.jsx', 'jsx', 'node'],
+    // The following line adds support for absolute paths
+    modulePaths: ["src"]
   };
   if (rootDir) {
     config.rootDir = rootDir;

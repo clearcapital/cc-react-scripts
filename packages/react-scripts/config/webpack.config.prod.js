@@ -18,7 +18,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -86,7 +85,12 @@ module.exports = {
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    modules: ['node_modules', paths.appNodeModules].concat(
+
+    // cc-react-scripts also adds support for absolute paths with paths.appSrc
+    // eg: import SomeFile from '../../components/SomeFile' becomes
+    // import SomeFile from 'components/SomeFile'
+    // where SomeFile is at /src/components/SomeFile.js
+    modules: [paths.appSrc, 'node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
@@ -134,19 +138,6 @@ module.exports = {
         enforce: 'pre',
         use: [
           {
-            options: {
-              formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint'),
-              // @remove-on-eject-begin
-              // TODO: consider separate config for production,
-              // e.g. to enable no-console and no-debugger only in production.
-              baseConfig: {
-                extends: [require.resolve('eslint-config-react-app')],
-              },
-              ignore: false,
-              useEslintrc: false,
-              // @remove-on-eject-end
-            },
             loader: require.resolve('eslint-loader'),
           },
         ],
@@ -176,7 +167,18 @@ module.exports = {
               // @remove-on-eject-begin
               babelrc: false,
               presets: [require.resolve('babel-preset-react-app')],
-              // @remove-on-eject-end
+              plugins: [[
+                        require.resolve('babel-plugin-react-css-modules'),
+                        {
+                          "generateScopedName": "[local]-[hash:base64:12]",
+                          "filetypes": {
+                            ".scss": {
+                              "syntax": "postcss-scss"
+                            }
+                          }
+                        }
+                      ],require.resolve('babel-plugin-transform-decorators-legacy')],
+               // @remove-on-eject-end
               compact: true,
             },
           },
@@ -234,6 +236,41 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+          {
+            test: /\.scss$/,
+            include: paths.appSrc,
+            loader: ExtractTextPlugin.extract(
+              Object.assign({
+                use: [
+                  {
+                    loader: 'css-loader?importLoader=1&minimize&modules&localIdentName=[local]-[hash:base64:12]', // creates local modular CSS
+                  },
+                  {
+                    loader: require.resolve('sass-loader'), // compiles Sass to CSS
+                  },
+                ],
+              }, extractTextPluginOptions)
+            ),
+          },
+          {
+            test: /\.less$/,
+            include: paths.appSrc,
+            loader: ExtractTextPlugin.extract(
+              Object.assign({
+                use: [
+                  {
+                    loader: require.resolve('less-loader'), // compiles Less to CSS
+                  },
+                  {
+                    loader: require.resolve('css-loader'), // translates CSS into CommonJS
+                  },
+                  {
+                    loader: require.resolve('style-loader'), // creates style nodes from JS strings
+                  },
+                ],
+              }, extractTextPluginOptions)
+            ),
+          },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader don't uses a "test" so it will catch all modules
@@ -244,7 +281,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            exclude: [/\.js$/, /\.html$/, /\.json$/, /\.sass$/, /\.less$/],
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },

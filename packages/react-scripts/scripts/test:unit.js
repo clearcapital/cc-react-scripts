@@ -28,10 +28,7 @@ require('../config/env');
 const jest = require('jest');
 const argv = process.argv.slice(2);
 
-// Watch unless on CI or in coverage mode
-if (!process.env.CI && argv.indexOf('--coverage') < 0) {
-  argv.push('--watch');
-}
+argv.push('--verbose')
 
 // @remove-on-eject-begin
 // This is not necessary after eject because we embed config into package.json.
@@ -49,4 +46,5 @@ argv.push(
   )
 );
 // @remove-on-eject-end
+
 jest.run(argv);

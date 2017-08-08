@@ -1,0 +1,22 @@
+.App-footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #f0f0f0;
+  padding: 0rem;
+  text-align: center;
+  color: black;
+  font-size: 13px;
+}
+.App-footer a {
+  text-decoration: none;
+}
+.App-footer a:visited {
+  color: black;
+}
+/* Commented out for professionalism :(
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}*/
