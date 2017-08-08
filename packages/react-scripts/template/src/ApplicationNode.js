@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Provider} from 'react-redux'
-import {BrowserRouter} from 'react-router-dom'
+import {Router} from 'react-router-dom'
+import history from 'services/history'
 import DevTools from './components/DevTools'
 import Routes from './rootRoutes'
 
@@ -13,9 +14,9 @@ const ApplicationNode = ({store}) => {
     <Provider store={store}>
       <div>
         {process.env.NODE_ENV !== 'production' && <DevTools /> }
-        <BrowserRouter>
+        <Router history={history}>
           <Routes />
-        </BrowserRouter>
+        </Router>
       </div>
     </Provider>
   )

@@ -21,7 +21,7 @@ const store = configureStore(initialState)
 
 const render = (Component) => {
   ReactDOM.render(
-    <Component store={store}/>,
+    <Component store={store} />,
     document.getElementById('root')
   )
 }

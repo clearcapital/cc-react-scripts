@@ -2,18 +2,18 @@ import React, { Component } from 'react'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Link } from 'react-router-dom'
-import './App.css'
+import './app.scss'
 
 class App extends Component {
   render () {
     return (
-      <div className="App">
-        <Header/>
+      <div styleName='App'>
+        <Header />
         <h3>Some cool things we included:</h3>
-        <ul className="centered-list">
-          <li><a href="http://redux.js.org/">Redux dev and prod suite</a></li>
-          <li><a href="https://reacttraining.com/react-router/web/guides/philosophy">React Router v4</a></li>
-          <li><a href="https://github.com/gajus/babel-plugin-react-css-modules#hot-to-live-reload-the-css">
+        <ul styleName='centered-list'>
+          <li><a href='http://redux.js.org/'>Redux dev and prod suite</a></li>
+          <li><a href='https://reacttraining.com/react-router/web/guides/philosophy'>React Router v4</a></li>
+          <li><a href='https://github.com/gajus/babel-plugin-react-css-modules#hot-to-live-reload-the-css'>
               Babel Sass Modular styling</a>
           </li>
           <li>True JS Hot Module Replacement</li>
@@ -23,8 +23,8 @@ class App extends Component {
           <li>Lodash, moment, classnames</li>
           <li>And much more!</li>
         </ul>
-        <Link className="linkText" to='/Example'>Redux Example</Link>
-        <Footer/>
+        <Link to='/Example'>Redux Example</Link>
+        <Footer />
       </div>
     )
   }

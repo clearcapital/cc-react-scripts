@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { exampleAction } from 'actions/exampleActions'
-import './Example.css'
+import './example.scss'
 
 const addAmount = 1
 
@@ -26,18 +26,22 @@ class Example extends Component {
     exampleAction: PropTypes.func
   }
 
+  action = () => {
+    this.props.exampleAction(addAmount)
+  }
+
   render () {
     return (
-      <div className="Example">
-        <Header/>
+      <div styleName='Example'>
+        <Header />
         <h3>You just used React Router v4!</h3>
         <p>Check out this sweet redux example:</p>
-        <p className="State">{this.props.state}</p>
-        <Button action={this.props.exampleAction.bind(this, addAmount)} text='Change State'/>
-        <br/>
-        <br/>
+        <p styleName='State'>{this.props.state}</p>
+        <Button action={this.action} text='Change State' />
+        <br />
+        <br />
         <Link to='/'>Go Back</Link>
-        <Footer/>
+        <Footer />
       </div>
     )
   }

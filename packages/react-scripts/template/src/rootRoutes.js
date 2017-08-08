@@ -5,8 +5,8 @@ import App from './views/App'
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={App} />
-      <Route path="/example" component={Example} />
+      <Route exact path='/' component={App} />
+      <Route path='/example' component={Example} />
     </Switch>
   )
   // Look Ma, no children! RRv4 treats routes as components now, so call

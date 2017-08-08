@@ -1,7 +1,6 @@
 {
   "extends": [
-    "plugin:react/recommended",
-    "standard"
+    "standard", "standard-react"
   ],
   "plugins": [
     "react"
