@@ -17,7 +17,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const getClientEnvironment = require('./env');
@@ -125,7 +124,6 @@ module.exports = {
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc),
     ],
-
   },
   module: {
     strictExportPresence: true,
@@ -142,6 +140,7 @@ module.exports = {
         use: [
           {
             loader: require.resolve('eslint-loader'),
+            options: { emitWarning: true },
           },
         ],
         include: paths.appSrc,
@@ -171,18 +170,21 @@ module.exports = {
               // @remove-on-eject-begin
               babelrc: false,
               presets: [require.resolve('babel-preset-react-app')],
-              plugins: [[
-                        require.resolve('babel-plugin-react-css-modules'),
-                        {
-                          "generateScopedName": "[name]-[local]__[hash:base64:7]",
-                          "webpackHotModuleReloading": true,
-                          "filetypes": {
-                            ".scss": {
-                              "syntax": "postcss-scss"
-                            }
-                          }
-                        }
-                      ],require.resolve('babel-plugin-transform-decorators-legacy')],
+              plugins: [
+                [
+                  require.resolve('babel-plugin-react-css-modules'),
+                  {
+                    generateScopedName: '[name]-[local]__[hash:base64:7]',
+                    webpackHotModuleReloading: true,
+                    filetypes: {
+                      '.scss': {
+                        syntax: 'postcss-scss',
+                      },
+                    },
+                  },
+                ],
+                require.resolve('babel-plugin-transform-decorators-legacy'),
+              ],
               // @remove-on-eject-end
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -235,7 +237,8 @@ module.exports = {
                 loader: require.resolve('style-loader'), // creates style nodes from JS strings
               },
               {
-                loader: 'css-loader?importLoader=1&modules&localIdentName=[name]-[local]__[hash:base64:7]', // creates local modular CSS
+                loader:
+                  'css-loader?importLoader=1&modules&localIdentName=[name]-[local]__[hash:base64:7]', // creates local modular CSS
               },
               {
                 loader: require.resolve('sass-loader'), // compiles Sass to CSS
