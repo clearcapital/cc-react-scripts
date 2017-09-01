@@ -28,6 +28,12 @@ This is a repo for our custom implementation of react scripts for the create rea
     - redux-thunk
 
 ## Getting Started
+Make sure you have create react app installed.
+
+```bash
+npm install -g create-react-app
+```
+
 Clone this repository into your work space and prepare to edit files in `/packages/react-scripts`. To actually _create_ an app with these custom scripts:
 ```bash
 create-react-app my-app --scripts-version cc-react-scripts
