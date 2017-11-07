@@ -24,3 +24,11 @@ require('whatwg-fetch');
 // Object.assign() is commonly used with React.
 // It will use the native implementation if it's present and isn't buggy.
 Object.assign = require('object-assign');
+
+// String.prototype.startsWith polyfill (ORD-539 re: CCP not starting on IE)
+if (!String.prototype.startsWith) {
+  String.prototype.startsWith = function(searchString, position){
+    position = position || 0;
+    return this.substr(position, searchString.length) === searchString;
+  };
+}
