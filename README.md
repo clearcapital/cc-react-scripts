@@ -2,31 +2,6 @@
 
 This is a repo for our custom implementation of react scripts for the create react app tool
 
-
-## TODO
-
-- [x] Update this readme file with your guide to update and change this script
-- [x] Fix the build config, `npm run build` does not seem to process the other style files
-- [x] Babel: Verify asycn and await
-- [x] Babel: Add decorators
-- [x] Update the lint style to use StandardJS
-- [x] Add our `.editorconfig`
-- [x] Add `.npmrc`
-- [x] Add `.nvmrc`
-- [x] Update npm scripts specifically for linting and unit testing, then have test call both like in our apps now
-- [x] Add react-jss
-- [x] Add lodash
-- [x] Add moment
-- [x] Add classnames
-- [x] Add Redux
-    - redux
-    - redux-devtools
-    - redux-devtools-dock-monitor
-    - redux-devtools-log-monitor
-    - redux-multi
-    - redux-promise
-    - redux-thunk
-
 ## Getting Started
 Make sure you have create react app installed.
 
