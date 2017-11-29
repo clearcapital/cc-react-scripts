@@ -1,131 +1,124 @@
 export default class Api {
-  static timeout = 120000;
+  static timeout = 120000
 
   static headers = {
-    Accept: 'application/json, text/javascript; q=0.9, */*; q=0.6',
+    'Accept': 'application/json, text/javascript; q=0.9, */*; q=0.6',
     'Accept-Encoding': 'gzip, deflate, br',
-    'Content-Type': 'application/json',
-  };
+    'Content-Type': 'application/json'
+  }
 
-  constructor(props) {
-    const { baseUrl, headers, errorHandler } = props;
-    this.errorHandler = errorHandler;
-    this.baseUrl = baseUrl;
+  constructor (props) {
+    const {baseUrl, headers, errorHandler} = props
+    this.errorHandler = errorHandler
+    this.baseUrl = baseUrl
     this.headers = {
-      ...Api.headers,
-    };
+      ...Api.headers
+    }
 
     if (headers) {
-      Object.keys(headers).forEach(key => {
+      Object.keys(headers).forEach((key) => {
         if (headers[key] === null) {
-          delete this.headers[key];
+          delete this.headers[key]
         } else {
-          this.headers[key] = headers[key];
+          this.headers[key] = headers[key]
         }
-      });
+      })
     }
   }
 
   request = (url, options, passThrough) => {
-    const { errorHandler } = this;
+    const {errorHandler} = this
 
     return fetch(url, options).then(
-      async response => {
+      async (response) => {
         if (response.ok) {
           if (response.status !== 204) {
-            let data;
+            let data
 
-            if (
-              response.headers.get('content-type') === 'image/jpeg' ||
-              response.headers.get('content-type') === 'text/csv'
-            ) {
-              data = await response.text();
+            if (response.headers.get('content-type') === 'image/jpeg' || response.headers.get('content-type') === 'text/csv') {
+              data = await response.text()
             } else {
-              data = await response.json();
+              data = await response.json()
             }
 
-            return passThrough ? { ...passThrough, ...data } : data;
+            return (passThrough)
+              ? {...passThrough, ...data}
+              : data
           }
         } else {
-          const apiError = new Error('Api Error');
-          apiError.response = response;
+          const apiError = new Error('Api Error')
+          apiError.response = response
 
           if (errorHandler) {
-            errorHandler(apiError);
+            errorHandler(apiError)
           } else {
-            throw apiError;
+            throw apiError
           }
         }
       },
       () => {
-        const callError = new Error('Call Error');
+        const callError = new Error('Call Error')
 
         if (errorHandler) {
-          errorHandler(callError);
+          errorHandler(callError)
         } else {
-          throw callError;
+          throw callError
         }
       }
-    );
-  };
+    )
+  }
 
   get = (url, passThrough, timeout = Api.timeout) => {
-    const { headers, request, baseUrl } = this;
+    const {headers, request, baseUrl} = this
     const options = {
       timeout,
       headers,
       credentials: 'include',
       method: 'GET',
-      mode: 'cors',
-    };
+      mode: 'cors'
+    }
 
-    return request(`${baseUrl}/${url}`, options, passThrough);
-  };
+    return request(`${baseUrl}/${url}`, options, passThrough)
+  }
 
   post = (url, data, passThrough, timeout = Api.timeout) => {
-    const { headers, request, baseUrl } = this;
+    const {headers, request, baseUrl} = this
     const options = {
       timeout,
       headers,
       credentials: 'include',
-      body:
-        this.headers['Content-Type'] === 'application/json'
-          ? JSON.stringify(data)
-          : data,
+      body: this.headers['Content-Type'] === 'application/json' ? JSON.stringify(data) : data,
       method: 'POST',
-      mode: 'cors',
-    };
+      mode: 'cors'
+    }
 
-    return request(`${baseUrl}/${url}`, options, passThrough);
-  };
+    return request(`${baseUrl}/${url}`, options, passThrough)
+  }
 
   put = (url, data, passThrough, timeout = Api.timeout) => {
-    const { headers, request, baseUrl } = this;
+    const {headers, request, baseUrl} = this
     const options = {
       timeout,
       headers,
       credentials: 'include',
-      body:
-        this.headers['Content-Type'] === 'application/json'
-          ? JSON.stringify(data)
-          : data,
+      body: this.headers['Content-Type'] === 'application/json' ? JSON.stringify(data) : data,
       method: 'PUT',
-      mode: 'cors',
-    };
+      mode: 'cors'
+    }
 
-    return request(`${baseUrl}/${url}`, options, passThrough);
-  };
+    return request(`${baseUrl}/${url}`, options, passThrough)
+  }
 
   delete = (url, passThrough, timeout = Api.timeout) => {
-    const { headers, request, baseUrl } = this;
+    const {headers, request, baseUrl} = this
     const options = {
       timeout,
       headers,
       credentials: 'include',
       method: 'DELETE',
-      mode: 'cors',
-    };
+      mode: 'cors'
+    }
 
-    return request(`${baseUrl}/${url}`, options, passThrough);
-  };
+    return request(`${baseUrl}/${url}`, options, passThrough)
+  }
 }
