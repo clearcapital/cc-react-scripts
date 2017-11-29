@@ -1,29 +1,28 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Provider} from 'react-redux'
-import {Router} from 'react-router-dom'
-import history from 'services/history'
-import DevTools from './components/DevTools'
-import Routes from './rootRoutes'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import { Router, Switch, Route } from 'react-router-dom';
+import history from 'services/history';
+import DevTools from 'components/DevTools';
+import App from './views/App';
 
-// NOTE: React Router v4 uses seperate imports for dom and native now!
-// It also automatically creates a history object for you.
-
-const ApplicationNode = ({store}) => {
+const ApplicationNode = ({ store }) => {
   return (
     <Provider store={store}>
       <div>
-        {process.env.NODE_ENV !== 'production' && <DevTools /> }
+        {process.env.NODE_ENV !== 'production' && <DevTools />}
         <Router history={history}>
-          <Routes />
+          <Switch>
+            <Route exact path="/" component={App} />
+          </Switch>
         </Router>
       </div>
     </Provider>
-  )
-}
+  );
+};
 
 ApplicationNode.propTypes = {
-  store: PropTypes.object.isRequired
-}
+  store: PropTypes.object.isRequired,
+};
 
-export default ApplicationNode
+export default ApplicationNode;
