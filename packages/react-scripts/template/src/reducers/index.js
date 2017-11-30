@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import exampleReducer from './exampleReducers'
+import app from './appReducer'
 export default combineReducers({
-  exampleReducer
+  app
 })

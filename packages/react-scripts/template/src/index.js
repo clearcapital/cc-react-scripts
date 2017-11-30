@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import ApplicationNode from './ApplicationNode'
 import {unregister} from './services/registerServiceWorker'
-import {configureStore} from './services/store'
+import store from './services/store'
 
 let initialState = {}
 
@@ -13,8 +13,6 @@ if (window.__INITIAL_STATE__) {
     initialState[key] = state[key]
   })
 }
-
-const store = configureStore(initialState)
 
 const render = (Component) => {
   ReactDOM.render(
