@@ -47,6 +47,7 @@ module.exports = function(
     'test:watch': 'react-scripts test:watch',
     'test:lint': './node_modules/.bin/eslint . --color; exit 0',
     eject: 'react-scripts eject',
+    "purge": "rm -rf node_moodules; npm i"
   };
 
   fs.writeFileSync(

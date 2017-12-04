@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Provider} from 'react-redux'
-import {Router} from 'react-router-dom'
+import {Router, Switch, Route} from 'react-router-dom'
 import history from 'services/history'
-import DevTools from './components/DevTools'
-import Routes from './rootRoutes'
-
-// NOTE: React Router v4 uses seperate imports for dom and native now!
-// It also automatically creates a history object for you.
+import DevTools from 'components/DevTools'
+import App from './views/App'
 
 const ApplicationNode = ({store}) => {
   return (
@@ -15,7 +12,9 @@ const ApplicationNode = ({store}) => {
       <div>
         {process.env.NODE_ENV !== 'production' && <DevTools /> }
         <Router history={history}>
-          <Routes />
+          <Switch>
+            <Route exact path='/' component={App} />
+          </Switch>
         </Router>
       </div>
     </Provider>

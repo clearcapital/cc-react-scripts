@@ -1,10 +1,6 @@
 {
-  "extends": [
-    "standard", "standard-react"
-  ],
-  "plugins": [
-    "react"
-  ],
+  "extends": ["standard", "standard-react"],
+  "plugins": ["react"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 7,
@@ -31,5 +27,8 @@
     "afterEach": true,
     "React": true
   },
-  "rules": {}
+  "rules": {
+    "react/jsx-space-before-closing": 0,
+    "react/jsx-tag-spacing": 2
+  }
 }
