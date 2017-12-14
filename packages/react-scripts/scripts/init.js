@@ -117,7 +117,7 @@ module.exports = function(
 
   let command;
   let save;
-  let saveDev;
+  let saveDev = []; // we need to assign a value here in order to concat to it later
 
   if (useYarn) {
     command = 'yarnpkg';
