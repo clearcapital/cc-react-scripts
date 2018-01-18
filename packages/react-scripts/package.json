@@ -1,7 +1,6 @@
 {
   "name": "cc-react-scripts",
-  "version": "2.0.0-rc3",
-  "version": "1.5.0",
+  "version": "2.0.0-rc6",
   "description": "Clear Capital configuration and scripts for Create React App.",
   "repository": "clearcapital/cc-react-scripts",
   "license": "BSD-3-Clause",

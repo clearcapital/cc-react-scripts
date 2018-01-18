@@ -122,6 +122,7 @@ module.exports = function(
   if (useYarn) {
     command = 'yarnpkg';
     save = ['add'];
+    saveDev = ['add', '--dev']
   } else {
     command = 'npm';
     save = ['install', '--save', verbose && '--verbose'].filter(e => e);
