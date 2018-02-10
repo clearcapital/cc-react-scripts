@@ -1,7 +1,5 @@
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
-import {persistState} from 'redux-devtools'
-import DevTools from 'components/DevTools'
 import rootReducer from 'reducers'
 import {createLogger} from 'redux-logger'
 
@@ -20,19 +18,10 @@ export default function configureStore (initialState = {}) {
     }))
   }
 
-  const enhancers = [
-    applyMiddleware(...middleware)
-  ]
-
-  if (process.env.NODE_ENV !== 'production') {
-    enhancers.push(DevTools.instrument())
-    enhancers.push(persistState(getDebugSessionKey()))
-  }
-
+  const enhancers = [applyMiddleware(...middleware)]
   const store = createStore(rootReducer, initialState, compose(...enhancers))
 
-  // For hot reloading of react components
-  // Also for debugging
+  // For hot reloading of react components and debugging
   if (process.env.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('../reducers', () => {
       const nextReducer = require('../reducers').default
@@ -40,9 +29,4 @@ export default function configureStore (initialState = {}) {
     })
   }
   return store
-}
-
-function getDebugSessionKey () {
-  const matches = window.location.href.match(/[?&]debug_session=([^&#]+)\b/)
-  return (matches && matches.length > 0) ? matches[1] : null
 }

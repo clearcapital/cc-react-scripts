@@ -8,16 +8,16 @@ import App from './views/App'
 
 const ApplicationNode = ({store}) => {
   return (
-    <Provider store={store}>
-      <div>
+    <div className='application-node'>
+      <Provider store={store}>
         {process.env.NODE_ENV !== 'production' && <DevTools /> }
         <Router history={history}>
           <Switch>
             <Route exact path='/' component={App} />
           </Switch>
         </Router>
-      </div>
-    </Provider>
+      </Provider>
+    </div>
   )
 }
 
