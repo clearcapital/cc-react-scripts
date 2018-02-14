@@ -22,8 +22,6 @@ class App extends Component {
           <li>Less and Sass support</li>
           <li>StandardJS Linting</li>
         </ul>
-
-        <Footer />
       </div>
     )
   }

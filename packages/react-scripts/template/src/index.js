@@ -8,7 +8,6 @@ let initialState = {}
 
 if (window.__INITIAL_STATE__) {
   const state = window.__INITIAL_STATE__
-  console.log('state', state)
   Object.keys(state).forEach(key => {
     initialState[key] = state[key]
   })
