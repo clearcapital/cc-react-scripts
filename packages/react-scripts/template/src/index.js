@@ -2,22 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import ApplicationNode from './ApplicationNode'
 import {unregister} from './services/registerServiceWorker'
-import store from './services/store'
-
-let initialState = {}
-
-if (window.__INITIAL_STATE__) {
-  const state = window.__INITIAL_STATE__
-  Object.keys(state).forEach(key => {
-    initialState[key] = state[key]
-  })
-}
+import {whyDidYouUpdate} from 'why-did-you-update'
 
 const render = (Component) => {
-  ReactDOM.render(
-    <Component store={store} />,
-    document.getElementById('root')
-  )
+  ReactDOM.render(<Component />, document.getElementById('root'))
 }
 
 render(ApplicationNode)
@@ -27,5 +15,17 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./ApplicationNode', () => {
     const NextApp = require('./ApplicationNode').default
     render(NextApp)
+  })
+
+  whyDidYouUpdate(React, {
+    // include: /^pure/,
+    // exclude: /^Connect/,
+    groupByComponent: true,
+    collapseComponentGroups: true
+    // notifier: (groupByComponent, collapseComponentGroups, displayName, diffs) => {
+    //   diffs.forEach(({name, prev, next, type}) => {
+    //     // Use the diff and notify the user somehow
+    //   })
+    // }
   })
 }

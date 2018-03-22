@@ -3,7 +3,7 @@ import './app.scss'
 import React, {Component} from 'react'
 import Header from 'components/Header'
 
-class App extends Component {
+export default class App extends Component {
   render () {
     return (
       <div styleName='app'>
@@ -26,5 +26,3 @@ class App extends Component {
     )
   }
 }
-
-export default App

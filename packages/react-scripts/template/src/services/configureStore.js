@@ -1,9 +1,8 @@
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from 'reducers'
 import {createLogger} from 'redux-logger'
 
-export default function configureStore (initialState = {}) {
+export default function configureStore (initialState = {}, rootReducer) {
   const middleware = [thunk]
   if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger({
@@ -14,6 +13,9 @@ export default function configureStore (initialState = {}) {
         action: 'debug',
         nextState: 'debug',
         error: 'error'
+      },
+      colors: {
+        title: () => '#8025B5'
       }
     }))
   }
@@ -28,5 +30,6 @@ export default function configureStore (initialState = {}) {
       store.replaceReducer(nextReducer)
     })
   }
+
   return store
 }
